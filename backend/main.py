@@ -6,6 +6,10 @@ import pickle
 import numpy as np
 import httpx
 import os
+import warnings
+
+# Suppress standard sklearn warnings about missing feature names (since we pass raw arrays)
+warnings.filterwarnings("ignore", category=UserWarning)
 
 app = FastAPI(title="Rain Prediction API")
 
