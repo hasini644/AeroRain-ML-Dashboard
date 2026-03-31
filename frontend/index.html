@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroRain | Premium Weather AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="app-container">
+        <div class="bg-layer" id="bg-layer"></div>
+        
+        <header>
+            <div class="logo">
+                <i data-lucide="cloud-lightning" class="logo-icon"></i>
+                <span>AeroRain</span>
+            </div>
+            <button class="settings-btn" id="settings-btn"><i data-lucide="bell"></i></button>
+        </header>
+
+        <main>
+            <section class="glass-card main-status">
+                <div class="location-header" id="location-name">
+                    <i data-lucide="map-pin"></i> Locating...
+                </div>
+                <div class="prediction-ring" id="prediction-ring">
+                    <div class="ring-content">
+                        <span class="percentage" id="rain-chance">--%</span>
+                        <span class="label">Rain Chance</span>
+                    </div>
+                </div>
+                <div class="status-text" id="status-text">Analyzing atmospheric data</div>
+            </section>
+
+            <section class="glass-card conditions-grid">
+                <div class="condition-item">
+                    <i data-lucide="thermometer"></i>
+                    <span class="value" id="curr-temp">--°C</span>
+                    <span class="label">Temp</span>
+                </div>
+                <div class="condition-item">
+                    <i data-lucide="droplets"></i>
+                    <span class="value" id="curr-hum">--%</span>
+                    <span class="label">Humidity</span>
+                </div>
+                <div class="condition-item">
+                    <i data-lucide="wind"></i>
+                    <span class="value" id="curr-wind">-- km/h</span>
+                    <span class="label">Wind</span>
+                </div>
+                <div class="condition-item">
+                    <i data-lucide="sun"></i>
+                    <span class="value" id="curr-uv">--</span>
+                    <span class="label">UV Index</span>
+                </div>
+                <div class="condition-item">
+                    <i data-lucide="thermometer-sun"></i>
+                    <span class="value" id="curr-feels">--°C</span>
+                    <span class="label">Feels Like</span>
+                </div>
+                <div class="condition-item">
+                    <i data-lucide="gauge"></i>
+                    <span class="value" id="curr-pres">-- hPa</span>
+                    <span class="label">Pressure</span>
+                </div>
+            </section>
+
+            <h3 class="section-title">7-Day Forecast</h3>
+            <div class="forecast-container" id="forecast-list">
+            </div>
+
+            <h3 class="section-title">AI Insights</h3>
+            <section class="glass-card insights-container">
+                <i data-lucide="cpu" class="insight-icon"></i>
+                <p id="ai-insight-text">Analyzing atmospheric conditions...</p>
+            </section>
+
+            <h3 class="section-title">Historical Insights</h3>
+            <section class="glass-card chart-container">
+                <canvas id="historyChart"></canvas>
+            </section>
+
+            <h3 class="section-title">Live Map</h3>
+            <section class="glass-card map-card" style="padding: 10px;">
+                <div id="weather-map" style="height: 250px; border-radius: 16px;"></div>
+            </section>
+        </main>
+        
+        <div class="modal" id="notif-modal">
+            <div class="glass-card modal-content">
+                <h3>Custom Alerts</h3>
+                <p>Notify me if rain probability exceeds:</p>
+                <input type="range" id="alert-slider" min="0" max="100" value="50">
+                <div class="slider-val" id="alert-val">50%</div>
+                <button class="primary-btn" id="save-alert">Save Preferences</button>
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--glass-border);">
+                    <h3>About the Model</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 5px;">
+                        AeroRain uses a Gradient Boosting Machine trained on decades of meteorological data. It analyzes 10 distinct high-resolution atmospheric features to predict localized precipitation.
+                    </p>
+                </div>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
